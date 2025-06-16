@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<TIENDAS EN SANTIAGO>
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
