@@ -1,9 +1,9 @@
-<TIENDAS EN SANTIAGO>
+<!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUÍA COMERCIAL DE SANTIAGO MIEDO - Edición Rosa</title>
+    <title>Guía Comercial de Santiago - Edición Rosa</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -51,13 +51,21 @@
             transform: scale(0.95);
             transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
         }
+        /* Added background pattern for more visual texture */
+        .textured-bg {
+            background-image: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png');
+        }
     </style>
 </head>
 <body class="text-rose-800">
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex flex-col items-center justify-center text-center p-8 bg-rose-50">
-        <h1 class="font-serif text-5xl md:text-7xl font-bold text-rose-900">¿No sabes dónde ir a comprar?</h1>
+    <section class="min-h-screen flex flex-col items-center justify-center text-center p-8 bg-rose-50 textured-bg">
+        <!-- SVG Logo -->
+        <div class="mb-6">
+            <svg class="w-24 h-24 text-rose-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.944a5.59 5.59 0 00-.584 3.954 5.59 5.59 0 003.58 3.58 5.59 5.59 0 003.954-.584l-5.32-5.32a.75.75 0 00-1.63.674v.001zM10 2a7.962 7.962 0 014.238 1.152l-5.39 5.39a.75.75 0 01-.674 1.63L2.848 5.762A7.962 7.962 0 0110 2zM14.238 14.848L8.848 9.458a.75.75 0 011.63-.674l5.39 5.39A7.962 7.962 0 0110 18a7.962 7.962 0 014.238-3.152z" clip-rule="evenodd"></path></svg>
+        </div>
+        <h1 class="font-serif text-5xl md:text-7xl font-bold text-rose-900">¿No sabes dónde ir a comprar EN LA CAPITALSSS?</h1>
         <p class="mt-4 text-lg text-rose-700 max-w-2xl">Hemos recopilado los mejores datos de proveedores en Santiago para que encuentres todo lo que necesitas.</p>
         <a href="#map-section" class="mt-12 animate-bounce">
             <i class="fas fa-chevron-down text-4xl text-rose-400"></i>
@@ -74,7 +82,7 @@
     </section>
 
     <!-- Categories Section -->
-    <section id="categories-section" class="py-16 sm:py-24 bg-rose-50">
+    <section id="categories-section" class="py-16 sm:py-24 bg-rose-50 textured-bg">
         <div class="container mx-auto px-6">
              <h2 class="font-serif text-4xl font-bold text-center mb-4 text-rose-900">Explora por Categoría</h2>
              <p class="text-center text-rose-700 max-w-3xl mx-auto mb-12">Encuentra exactamente lo que buscas navegando por nuestras categorías de productos.</p>
@@ -132,6 +140,19 @@
         const modalContent = document.getElementById('modal-content');
         let markersLayer = L.layerGroup().addTo(map);
 
+        // Map categories to Font Awesome icons
+        const categoryIcons = {
+            'Cosméticos': 'fa-solid fa-gem',
+            'Pestañas': 'fa-solid fa-eye',
+            'Uñas': 'fa-solid fa-hand-sparkles',
+            'Peluquería': 'fa-solid fa-scissors',
+            'Ropa': 'fa-solid fa-shirt',
+            'Calzado': 'fa-solid fa-shoe-prints',
+            'Accesorios': 'fa-solid fa-hat-wizard',
+            'Joyería': 'fa-solid fa-ring',
+            'Tecnología': 'fa-solid fa-mobile-screen-button'
+        };
+
         const groupStoresByCategory = () => {
             const grouped = {};
             storesData.forEach(store => {
@@ -149,11 +170,10 @@
             const groupedStores = groupStoresByCategory();
             const categoryOrder = ['Cosméticos', 'Pestañas', 'Uñas', 'Peluquería', 'Ropa', 'Calzado', 'Accesorios', 'Joyería', 'Tecnología'];
             
-            // Reorder categories based on `categoryOrder`
             const sortedCategories = Object.keys(groupedStores).sort((a, b) => {
                 const indexA = categoryOrder.indexOf(a);
                 const indexB = categoryOrder.indexOf(b);
-                if (indexA === -1) return 1; // Put categories not in the order list at the end
+                if (indexA === -1) return 1;
                 if (indexB === -1) return -1;
                 return indexA - indexB;
             });
@@ -162,8 +182,13 @@
                 const stores = groupedStores[category];
                 const categorySection = document.createElement('div');
                 categorySection.className = 'section-fade-in';
+                const iconClass = categoryIcons[category] || 'fa-solid fa-store'; // Fallback icon
+
                 categorySection.innerHTML = `
-                    <h3 class="font-serif text-3xl font-bold mb-8 text-rose-900">${category}</h3>
+                    <h3 class="font-serif text-3xl font-bold mb-8 text-rose-900 text-center flex items-center justify-center gap-4">
+                        <i class="${iconClass} text-rose-400"></i>
+                        <span>${category}</span>
+                    </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         ${stores.map(store => `
                             <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer" onclick="showStoreDetails(${store.id})">
