@@ -1,10 +1,10 @@
 ## ES DE MIEDO O NO??👋
-<!DOCTYPE html>
+                                                ESTO APARECE ABAJO
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía Comercial Interactiva de Santiago</title>
+    <title>Guía Comercial Interactiva de Santiago de neo </title>
     
     <!-- Chosen Palette: Warm Neutrals (Alabaster, Almond, Pale Taupe, Liver Chestnut) -->
     <!-- Application Structure Plan: Se ha diseñado una SPA con un layout de dashboard. A la izquierda, una barra lateral con filtros (búsqueda, categoría, tipo, comuna) permite al usuario refinar la búsqueda. El área principal muestra las tiendas en formato de tarjetas interactivas. Al hacer clic en una tarjeta o en un marcador del mapa, un modal muestra los detalles completos de la tienda. Esta estructura fue elegida porque separa claramente las acciones de filtrar, explorar y profundizar, ofreciendo un flujo de usuario intuitivo y eficiente para manejar un gran volumen de datos como es un directorio. -->
